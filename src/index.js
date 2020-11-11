@@ -1,17 +1,18 @@
+import { BatchedBuffer } from './lib/batched-buffer';
 import { generateUser } from './lib/generators/user';
 import { recordMemoryUsage } from './lib/record-memory-usage';
 import { Timer } from './lib/timer';
 
-const users = generateUser(2e2);
+const users = generateUser(2e5);
 
 const timer = new Timer('user-generate');
 timer.start();
 
 recordMemoryUsage('start');
 
-for (const user of users) {
-  console.log(user);
-}
+const buffer = new BatchedBuffer(users, { bufferSize: 5000 });
+buffer.on('flush', (batch) => console.log(batch.length));
+buffer.process();
 
 recordMemoryUsage('end');
 
