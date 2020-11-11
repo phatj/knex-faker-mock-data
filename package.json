@@ -8,7 +8,9 @@
   "scripts": {
     "watch": "nodemon --exec yarn babel-node --",
     "start": "babel-node src/",
-    "lint": "eslint src/. --config .eslintrc.json"
+    "lint": "eslint src/. --config .eslintrc.json",
+    "knex": "babel-node node_modules/.bin/knex",
+    "knex:create-db": "babel-node src/db/create-database.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -22,6 +24,9 @@
     "prettier": "^2.1.2"
   },
   "dependencies": {
-    "faker": "^5.1.0"
+    "dotenv": "^8.2.0",
+    "faker": "^5.1.0",
+    "knex": "^0.21.12",
+    "pg": "^8.5.0"
   }
 }
