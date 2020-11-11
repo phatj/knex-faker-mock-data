@@ -1,7 +1,11 @@
 import { generateUser } from './lib/generators/user';
 import { recordMemoryUsage } from './lib/record-memory-usage';
+import { Timer } from './lib/timer';
 
-const users = generateUser(2);
+const users = generateUser(2e2);
+
+const timer = new Timer('user-generate');
+timer.start();
 
 recordMemoryUsage('start');
 
@@ -10,3 +14,6 @@ for (const user of users) {
 }
 
 recordMemoryUsage('end');
+
+timer.stop();
+console.log(timer.stringDuration);
