@@ -1,9 +1,5 @@
-import { EventEmitter } from 'events';
-
-export class BatchedBuffer extends EventEmitter {
+export class BatchedBuffer {
   constructor(iterable, { bufferSize = 500 } = {}) {
-    super();
-
     this._buffer = [];
     this.bufferSize = bufferSize;
     this._iterable = iterable;
