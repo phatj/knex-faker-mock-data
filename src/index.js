@@ -1,17 +1,7 @@
-import { name, random, internet, phone, lorem } from 'faker';
-import { getRandomInt } from './lib/utils';
+import { generateUser } from './lib/generators/user';
 
-const user = {
-  id: random.uuid(),
-  firstName: name.firstName(),
-  lastName: name.lastName(),
-  email: internet.email(),
-  phoneNumber: phone.phoneNumber(),
-  welcomeTexts: [
-    ...Array(getRandomInt(2, 5))
-      .fill(null)
-      .map(() => lorem.sentence()),
-  ],
-};
+const users = generateUser(6);
 
-console.log(user);
+for (const user of users) {
+  console.log(user);
+}
