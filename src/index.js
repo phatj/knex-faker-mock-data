@@ -11,8 +11,7 @@ timer.start();
 recordMemoryUsage('start');
 
 const buffer = new BatchedBuffer(users, { bufferSize: 5000 });
-buffer.on('flush', (batch) => console.log(batch.length));
-buffer.process();
+buffer.process((batch) => console.log(batch.length));
 
 recordMemoryUsage('end');
 

@@ -4,29 +4,15 @@ import { generateUser } from '../../lib/generators/user';
 export const seed = async function (knex) {
   await knex('user').del();
 
-  await new Promise((resolve, reject) => {
-    const numUsers = 2e3;
-    let totalInserted = 0;
+  const users = generateUser(2e5);
+  const buffer = new BatchedBuffer(users, { bufferSize: 5000 });
 
-    const users = generateUser(numUsers);
-    const buffer = new BatchedBuffer(users, { bufferSize: 250 });
-
-    buffer.on('flush', async (batch) => {
-      try {
-        await knex.batchInsert('user', batch, batch.length);
-        console.log(`Inserted ${batch.length} users...`);
-
-        totalInserted += batch.length;
-
-        if (totalInserted >= numUsers) {
-          resolve(totalInserted);
-        }
-      } catch (error) {
-        console.error(error);
-        reject(error);
-      }
-    });
-
-    buffer.process();
+  await buffer.process(async (batch) => {
+    try {
+      await knex.batchInsert('user', batch, batch.length);
+      console.log(`Inserted ${batch.length} users...`);
+    } catch (error) {
+      console.error(error);
+    }
   });
 };

@@ -9,22 +9,26 @@ export class BatchedBuffer extends EventEmitter {
     this._iterable = iterable;
   }
 
-  process() {
+  async process(onFlush) {
+    this._onFlush = onFlush;
+
     for (const item of this._iterable) {
       this._buffer.push(item);
 
       if (this._buffer.length % this.bufferSize === 0) {
-        this._flush();
+        await this._flush();
       }
     }
 
     if (this._buffer.length > 0) {
-      this._flush();
+      await this._flush();
     }
+
+    this._onFlush = null;
   }
 
-  _flush() {
-    this.emit('flush', this._buffer);
+  async _flush() {
+    await this._onFlush(this._buffer);
     this._buffer = [];
   }
 }
