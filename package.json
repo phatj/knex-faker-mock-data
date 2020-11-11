@@ -1,0 +1,21 @@
+{
+  "name": "knex-faker-mock-data",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Jamal <jshah@fluxworkstudios.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "watch": "nodemon --exec yarn babel-node --",
+    "start": "babel-node src/"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.1",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "faker": "^5.1.0"
+  }
+}
