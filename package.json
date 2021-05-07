@@ -10,7 +10,9 @@
     "start": "babel-node src/",
     "lint": "eslint src/. --config .eslintrc.json",
     "knex": "babel-node node_modules/.bin/knex",
-    "knex:create-db": "babel-node src/db/create-database.js"
+    "db:create": "babel-node src/db/create-database.js",
+    "db:migrate": "yarn knex migrate:up",
+    "db:seed": "yarn knex seed:run"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
